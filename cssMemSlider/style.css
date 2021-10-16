@@ -10,8 +10,8 @@ body {
 }
 
 section {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 .container {
@@ -22,7 +22,7 @@ section {
     width: 100%;
     max-width: 90vw;
     height: 100%;
-    max-height: 90vh;
+    max-height: 100vh;
     background-color: aqua;
 }
 
@@ -39,7 +39,7 @@ background-image: url("https://www.transparenttextures.com/patterns/wood.png");
     height: 80vh;
     margin-left: auto;
     margin-right: auto;
-
+    max-width: 80em;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 5fr 1fr;
@@ -56,11 +56,35 @@ background-image: url("https://www.transparenttextures.com/patterns/wood.png");
     box-shadow: 0px 0 16px 7px rgba(132, 125, 125, 0.44)inset;
     border-radius: 1em;
     border: 0.15em solid rgb(65, 60, 60);
+    min-height: 40vh;
+    height: 100%;
 }
 
 .slider {
     background-color: burlywood;
     border-radius: 1em;
+}
+
+.slide {
+    transform: translateX(100%);
+    /* УДАЛИТЬ!!!!!!!!!!! */
+    font-size: 50px;
+}
+
+.slide-active {
+    transform: translateX(0);
+}
+
+.slide-prev {
+    transform: translateX(-100%);
+}
+
+.slide-next {
+    transform: translateX(100%);
+}
+
+.btn-active {
+    background-color: yellow;
 }
 
 .info {
@@ -77,11 +101,8 @@ background-image: url("https://www.transparenttextures.com/patterns/wood.png");
     background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
     border-radius: 1em;
     display: grid;
-    /* grid-template-rows: 2fr 1fr;
-    grid-row-gap: 0.5em; */
     grid-template-columns: 4fr 2fr 1fr 4fr;
     grid-template-rows: 1fr;
-    /* grid-template-columns: 4fr 1fr 4fr 1fr; */
     grid-column-gap: 1em;
     padding-left: 1em;
     padding-right: 1em;
@@ -157,8 +178,7 @@ button {
 }
 
 .tv {
-    width: 90vw;
-    height: 70vh;
+    max-width: 90vw;
     max-height: 90vh;
 }
 
@@ -174,7 +194,8 @@ button {
 }
 
 .slider {
-    display: relative;
+    position: relative;
+    display: inline-flex;
     border-radius: 1em;
 }
 
@@ -184,7 +205,7 @@ button {
 }
 
 .slide {
-    flex: 0 0 50%;
+    flex: 0 0 100%;
     width: 100%;
     height: 100%;
 }
@@ -244,7 +265,7 @@ button {
         justify-content: space-around;
         width: 40%;
         height: 70%;
-        padding: 0.3em;
+        padding: 0.5em;
     }
 
     .button-main-wrap {
@@ -303,7 +324,6 @@ button {
 @media screen and (max-width: 650px) and (min-width: 320px) {
     .tv {
         padding: 1.6em;
-        height: 55vh;
     }
 
     .controls {
