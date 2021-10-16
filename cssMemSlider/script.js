@@ -1,68 +1,36 @@
-const allSlideElements = Array.from(document.querySelectorAll('.slide'));
-const sliderWrapperElement = document.querySelector('.slider');
-const buttons = document.querySelectorAll('.btn');
+const prevSlideElement = document.querySelector('.prev');
+const nextSlideElement = document.querySelector('.next');
+const MAX_SLIDE_ARRAY_LENGTH = 4;
+let randomIndex = 0;
+let currentIndex;
+const allPhotos = ['./img/1.jpg', './img/2.jpg', './img/3.jpg', './img/4.jpg']
 
-const getNextPrev = () => {
-    const activeSlide = document.querySelector('.slide-active');
-    let activeIndex = allSlideElements.indexOf(activeSlide);
-    let nextSlide, prevSlide;
-    let nextIndex = activeIndex > allSlideElements.length - 2 ? 0 : activeIndex += 1;
-    let prevIndex = activeIndex < 2 ? allSlideElements.length - 1 : activeIndex -= 2;
+const getPrevSlide = (currentIndex) => {
+    randomIndex = currentIndex > 0 ? currentIndex -= 1 : MAX_SLIDE_ARRAY_LENGTH - 1;
+    return randomIndex;
+};
 
-    nextSlide = allSlideElements[nextIndex];
-    prevSlide = allSlideElements[prevIndex];
-
-    return [prevSlide, nextSlide];
-}
-
-
-const getPosition = () => {
-    const activeSlide = document.querySelector('.slide-active');
-    let activeIndex = allSlideElements.indexOf(activeSlide);
-    let [prevSlide, nextSlide] = getNextPrev();
-
-    allSlideElements.forEach((slide, index) => {
-        if (index === activeIndex) {
-            slide.style.transform = 'translateX(0)';
-        } else if (slide === prevSlide) {
-            slide.style.transform = 'translateX(-100%)';
-        } else if (slide === nextSlide) {
-            slide.style.transform = 'translateX(100%)';
-        } else {
-            slide.style.transform = 'translate(100%)';
-        }
-    })
-}
+const getNextSlide = (currentIndex) => {
+    randomIndex = currentIndex > MAX_SLIDE_ARRAY_LENGTH - 2 ? 0 : currentIndex + 1;
+    return randomIndex;
+};
 
 const showPrevSlide = () => {
     console.log('prev')
-}
+    currentIndex = getPrevSlide(randomIndex);
+    setBg(currentIndex);
+};
 
 const showNextSlide = () => {
-    const currentSlide = document.querySelector('.slide-active');
+    console.log('next')   
+    currentIndex = getNextSlide(randomIndex);
+    setBg(randomIndex);
+};
 
-    let [prevSlide, nextSlide] = getNextPrev();
+const setBg = (randomIndex) => {
+    document.querySelector('.slider').style.backgroundImage = `url(${allPhotos[randomIndex]})`
+    return randomIndex;
+};
 
-    currentSlide.style.transform = 'translateX(-100%)';
-
-    currentSlide.classList.remove('slide-active');
-    nextSlide.style.transform = 'translateX(0)';
-    nextSlide.classList.add('slide-active');
-
-
-}
-
-getPosition()
-
-buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        if (btn.classList.contains('prev')) {
-            showPrevSlide();
-        } else if (btn.classList.contains('next')) {
-            showNextSlide()
-        } else {
-            console.log('click')
-        }
-
-    })
-})
+prevSlideElement.addEventListener('click', showPrevSlide);
+nextSlideElement.addEventListener('click', showNextSlide);

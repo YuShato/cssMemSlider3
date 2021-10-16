@@ -17,7 +17,6 @@ section {
 .container {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2em;
     padding: 1em;
     width: 100%;
     max-width: 90vw;
@@ -43,7 +42,7 @@ background-image: url("https://www.transparenttextures.com/patterns/wood.png");
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 5fr 1fr;
-    padding: 3em;
+    padding: 0;
     border-radius: 25px;
 
 }
@@ -63,25 +62,20 @@ background-image: url("https://www.transparenttextures.com/patterns/wood.png");
 .slider {
     background-color: burlywood;
     border-radius: 1em;
+    background-size: cover;
+    object-fit: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .slide {
-    transform: translateX(100%);
-    /* УДАЛИТЬ!!!!!!!!!!! */
-    font-size: 50px;
+    border-radius: 0.3em;
 }
 
 .slide-active {
-    transform: translateX(0);
+    opacity: 1;
 }
 
-.slide-prev {
-    transform: translateX(-100%);
-}
-
-.slide-next {
-    transform: translateX(100%);
-}
 
 .btn-active {
     background-color: yellow;
@@ -179,7 +173,7 @@ button {
 
 .tv {
     max-width: 90vw;
-    max-height: 90vh;
+    min-height: 100%;
 }
 
 .panel-block {
@@ -233,12 +227,14 @@ button {
     .tv {
         grid-template-columns: 1fr;
         grid-template-rows: 5fr 1fr;
-        padding: 2em;
+        padding: 0;
+        max-width: 70vw;
     }
 
     .slider-wrap {
         border-radius: 1em;
     }
+
 
     .controls {
         display: grid;
@@ -323,7 +319,7 @@ button {
 
 @media screen and (max-width: 650px) and (min-width: 320px) {
     .tv {
-        padding: 1.6em;
+        padding: 0;
     }
 
     .controls {
@@ -364,4 +360,7 @@ button {
     .tv {
         max-width: 80em;
     }
+}
+.slider {
+    background-image: url(./img/1.jpg);
 }
