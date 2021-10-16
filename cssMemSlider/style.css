@@ -24,7 +24,6 @@ section {
     height: 100%;
     max-height: 90vh;
     background-color: aqua;
-
 }
 
 
@@ -66,6 +65,7 @@ background-image: url("https://www.transparenttextures.com/patterns/wood.png");
 
 .info {
     background-color: #40291b;
+    color: wheat;
     width: 100%;
     height: 85%;
     border-radius: 1em;
@@ -149,9 +149,6 @@ button {
 }
 
 
-/* -----------------media--------- */
-
-/* @media screen and (max-width: 1400px) and (min-width: 320px) { */
 .container {
     max-width: 100%;
     max-height: 100%;
@@ -177,13 +174,38 @@ button {
 }
 
 .slider {
+    display: relative;
     border-radius: 1em;
 }
 
 .slider-wrap {
     border-radius: 1em;
+    overflow: hidden;
 }
 
+.slide {
+    flex: 0 0 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.slide-1 {
+    background-color: rgb(73, 62, 131);
+}
+
+.slide-2 {
+    background-color: rgb(90, 36, 69);
+}
+
+.slide-3 {
+    background-color: rgb(62, 131, 85);
+}
+
+.slide-4 {
+    background-color: rgb(131, 109, 62);
+}
+
+/* -----------------media--------- */
 
 @media screen and (max-width: 1100px) and (min-width: 320px) {
 
@@ -194,7 +216,6 @@ button {
     }
 
     .slider-wrap {
-        /* border-radius: 15px 15px 0 0; */
         border-radius: 1em;
     }
 
