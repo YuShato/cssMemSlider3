@@ -369,7 +369,7 @@ button {
 
 .slide-right {
     animation-name: slide-right;
-    animation-duration: 1s;
+    animation-duration: 0.7s;
     animation-timing-function: ease;
     animation-delay: 0s;
     animation-iteration-count: 1;
@@ -381,18 +381,20 @@ button {
     0% {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
+        opacity: 0;
     }
 
     100% {
         -webkit-transform: translateX(0);
         transform: translateX(0);
+        opacity: 1;
     }
 }
 
 
 .slide-left {
     animation-name: slide-left;
-    animation-duration: 1s;
+    animation-duration: 0.7s;
     animation-timing-function: ease;
     animation-delay: 0s;
     animation-iteration-count: 1;
@@ -404,10 +406,12 @@ button {
     0% {
         -webkit-transform: translateX(100%);
         transform: translateX(100%);
+        opacity: 0;
     }
 
     100% {
         -webkit-transform: translateX(0);
         transform: translateX(0);
+        opacity: 1;
     }
 }
