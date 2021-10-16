@@ -1,5 +1,6 @@
 const prevSlideElement = document.querySelector('.prev');
 const nextSlideElement = document.querySelector('.next');
+const slider = document.querySelector('.slider');
 const MAX_SLIDE_ARRAY_LENGTH = 4;
 let randomIndex = 0;
 let currentIndex;
@@ -16,19 +17,25 @@ const getNextSlide = (currentIndex) => {
 };
 
 const showPrevSlide = () => {
-    console.log('prev')
     currentIndex = getPrevSlide(randomIndex);
+    slider.classList.add('slide-left');
     setBg(currentIndex);
+    slider.addEventListener('animationend', () => {
+        slider.classList.remove('slide-left'); 
+    });
 };
 
 const showNextSlide = () => {
-    console.log('next')   
     currentIndex = getNextSlide(randomIndex);
+    slider.classList.add('slide-right');
     setBg(randomIndex);
+    slider.addEventListener('animationend', () => {
+        slider.classList.remove('slide-right'); 
+    });
 };
 
 const setBg = (randomIndex) => {
-    document.querySelector('.slider').style.backgroundImage = `url(${allPhotos[randomIndex]})`
+    slider.style.backgroundImage = `url(${allPhotos[randomIndex]})`
     return randomIndex;
 };
 
