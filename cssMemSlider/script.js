@@ -1,6 +1,7 @@
 import {
     slideMessage,
-    greetindUserMessage
+    greetindUserMessage,
+    crossCheckTest
 } from "./data.js";
 
 const greetingContainerWrap = document.getElementById('greeting-info');
@@ -143,4 +144,8 @@ allBtnElements.forEach((btn) => {
     btn.addEventListener('click', (evt) => {
         toggleButton(evt);
     })
+});
+
+crossCheckTest.forEach((text) => {
+    console.log(text)
 });
