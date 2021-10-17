@@ -7,6 +7,10 @@ let randomIndex = 0;
 let currentIndex;
 let direction;
 
+const directionTo = {
+    left: 'left',
+    right: 'right',
+};
 
 const getPrevSlide = (currentIndex) => {
     randomIndex = currentIndex > 0 ? currentIndex -= 1 : MAX_SLIDE_ARRAY_LENGTH - 1;
@@ -19,24 +23,45 @@ const getNextSlide = (currentIndex) => {
 };
 
 const showPrevSlide = () => {
-    moveSlide('left')
+    currentIndex = getNextSlide(randomIndex);
+    moveSlide(currentIndex, directionTo.left)
 };
 
-const moveSlide = (direction) => {
-    currentIndex = getNextSlide(randomIndex);
+const moveSlide = (currentIndex, direction) => {
     slider.classList.add(`slide-${direction}`);
     setBg(currentIndex);
     slider.addEventListener('animationend', () => {
         slider.classList.remove(`slide-${direction}`);
     });
-}
+};
 
 const showNextSlide = () => {
-    moveSlide('right')
+    currentIndex = getNextSlide(randomIndex);
+    moveSlide(currentIndex, directionTo.right)
 };
 
 const setBg = (randomIndex) => {
     slider.style.backgroundImage = `url(./img/${[randomIndex + 1]}.jpg)`
+    return randomIndex;
+};
+
+const deleteActiveBtnClass = () => {
+    let prevActiveBtnElement = document.querySelector('.btn-active');
+    prevActiveBtnElement.classList.toggle('btn-active');
+};
+
+const addBtnActiveClass = (randomIndex) => {
+    allBtnElements[randomIndex].classList.toggle('btn-active');
+};
+
+const toggleButton = (evt) => {
+    prevIndex = randomIndex;
+    randomIndex = Number(evt.target.dataset.title);
+    direction = randomIndex > prevIndex ? directionTo.right : directionTo.left
+    deleteActiveBtnClass();
+    addBtnActiveClass(randomIndex);
+    setBg(randomIndex);
+    moveSlide(randomIndex, direction)
     return randomIndex;
 };
 
@@ -45,14 +70,6 @@ nextSlideElement.addEventListener('click', showNextSlide);
 
 allBtnElements.forEach((btn) => {
     btn.addEventListener('click', (evt) => {
-        prevIndex = randomIndex;
-        randomIndex = Number(evt.target.dataset.title);
-        let prevActiveBtnElement = document.querySelector('.btn-active');
-        prevActiveBtnElement.classList.toggle('btn-active');
-        allBtnElements[randomIndex].classList.toggle('btn-active');
-        direction = prevIndex > randomIndex ? 'left' : 'right';
-        setBg(randomIndex);
-        moveSlide(direction)
-        return randomIndex;
+        toggleButton(evt);
     })
-})
+});
