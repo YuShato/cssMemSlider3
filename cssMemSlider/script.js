@@ -29,11 +29,22 @@ const showPrevSlide = () => {
 
 const moveSlide = (currentIndex, direction) => {
     slider.classList.add(`slide-${direction}`);
-    setBg(currentIndex);
+  
     slider.addEventListener('animationend', () => {
         slider.classList.remove(`slide-${direction}`);
     });
+    deleteActiveBtnClass();
+    if (direction === directionTo.left) {
+        leftSlideInd = Math.abs((currentIndex -  allBtnElements.length + 1 ) * -1)
+        console.log(leftSlideInd)
+        addBtnActiveClass(leftSlideInd)
+    } else {
+        addBtnActiveClass(currentIndex)
+        setBg(currentIndex);
+    }
 };
+
+console.log('- стрелки вправо работают корректно, стреки влево чудят. Проверить, как пересчитывается индекс в кнопках и проверить, как слайды меняются при перелистывании влево')
 
 const showNextSlide = () => {
     currentIndex = getNextSlide(randomIndex);
