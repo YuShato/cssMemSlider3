@@ -1,7 +1,12 @@
+import {
+    slideMessage
+} from "./data.js";
+
 const prevSlideElement = document.querySelector('.prev');
 const nextSlideElement = document.querySelector('.next');
 const slider = document.querySelector('.slider');
 const allBtnElements = document.querySelectorAll('.toggle-btn');
+const userMessageWrapper = document.getElementById('message')
 const MAX_SLIDE_ARRAY_LENGTH = 4;
 let randomIndex = 0;
 let currentIndex;
@@ -24,18 +29,19 @@ const getNextSlide = (currentIndex) => {
 
 const showPrevSlide = () => {
     currentIndex = getNextSlide(randomIndex);
-    moveSlide(currentIndex, directionTo.left)
+    moveSlide(currentIndex, directionTo.left);
+    typeUserMessage(slideMessage[currentIndex], userMessageWrapper)
 };
 
 const moveSlide = (currentIndex, direction) => {
     slider.classList.add(`slide-${direction}`);
-  
+
     slider.addEventListener('animationend', () => {
         slider.classList.remove(`slide-${direction}`);
     });
     deleteActiveBtnClass();
     if (direction === directionTo.left) {
-        leftSlideInd = Math.abs((currentIndex -  allBtnElements.length + 1 ) * -1)
+        leftSlideInd = Math.abs((currentIndex - allBtnElements.length + 1) * -1)
         console.log(leftSlideInd)
         addBtnActiveClass(leftSlideInd)
     } else {
@@ -49,6 +55,7 @@ console.log('- стрелки вправо работают корректно, 
 const showNextSlide = () => {
     currentIndex = getNextSlide(randomIndex);
     moveSlide(currentIndex, directionTo.right)
+    typeUserMessage(slideMessage[currentIndex], userMessageWrapper)
 };
 
 const setBg = (randomIndex) => {
@@ -76,22 +83,9 @@ const toggleButton = (evt) => {
     return randomIndex;
 };
 
-prevSlideElement.addEventListener('click', showPrevSlide);
-nextSlideElement.addEventListener('click', showNextSlide);
-
-allBtnElements.forEach((btn) => {
-    btn.addEventListener('click', (evt) => {
-        toggleButton(evt);
-    })
-});
-
-
-// test
-
-const userMessageWrapper = document.getElementById('message')
-async function typeUserMessage(userMessage, parentElement) {
+const typeUserMessage = async (userMessage, parentElement) => {
     await pause(1);
-
+    parentElement.textContent = '';
     let textQueue = userMessage.split("");
 
     while (textQueue.length) {
@@ -101,14 +95,21 @@ async function typeUserMessage(userMessage, parentElement) {
     }
 
     await pause(0.5);
-    parentElement.classList.remove("active");
+    parentElement.classList.add("cursor");
     return;
-}
+};
 
-document.querySelector('.info').addEventListener('click', () => {
-    typeUserMessage('>  hello', userMessageWrapper)
-})
-
-function pause(s = 1) {
+const pause = (s = 1) => {
     return new Promise(resolve => setTimeout(resolve, 1000 * Number(s)));
-}
+};
+
+
+typeUserMessage(slideMessage[randomIndex], userMessageWrapper);
+prevSlideElement.addEventListener('click', showPrevSlide);
+nextSlideElement.addEventListener('click', showNextSlide);
+
+allBtnElements.forEach((btn) => {
+    btn.addEventListener('click', (evt) => {
+        toggleButton(evt);
+    })
+});

@@ -140,12 +140,20 @@ section {
     box-shadow: 0 0.1em 0.3em rgb(255 255 255 / 50%), 0 0.4em 1.5em rgb(0 0 0 / 60%);
     background-color: #766962;
     background-image: url("https://www.transparenttextures.com/patterns/bedge-grunge.png");
+    cursor: url(./img/cursor.cur), pointer;
+}
+
+.btn-container {
+    background-color: transparent;
+    padding: 1em;
 }
 
 button {
     width: 2em;
     height: 2em;
     box-shadow: 0.3em 0.3em 0.3em #111;
+    border: 0.1em solid rgb(210, 218, 165);
+    border-radius: 0.1em;
 }
 
 .button-main-wrap {
@@ -164,10 +172,51 @@ button {
 }
 
 .button-main {
+    font-size: 0.8em;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    color: rgb(20, 19, 19);
     width: 5em;
     height: 5em;
+    padding: 0.6em;
+    background: linear-gradient(135deg, #ffffff 0%, #d1d0cd 100%);
 }
 
+.button-main-wrap:hover .button-main {
+    cursor: url(./img/cursor.cur), pointer;
+    background: linear-gradient(135deg, #a7cfdf 0%, #b9a781 100%);
+}
+
+.toggle-btn {
+    height: 1.8em;
+    width: 1.8em;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f1f1 50%, #e1e1e1 53%, #f6f6f6 100%)
+}
+
+.btn-container:hover .toggle-btn {
+    background: linear-gradient(135deg, #a7cfdf 0%, #4d4c4a 100%);
+}
+
+.toggle-btn.btn-active {
+    background: linear-gradient(135deg, #a7cfdf 0%, #8a3823 100%);
+}
+
+.prev,
+.next {
+    background: linear-gradient(135deg, #cedfa7 0%, #2f2963 100%);
+    color: white;
+    width: 2em;
+    height: 1.8em;
+    font-size: 1.4em;
+    cursor: url(./img/cursor.cur), pointer;
+}
+
+.btn-container:hover .prev,
+.btn-container:hover .next {
+    background: linear-gradient(135deg, #cedfa7 0%, #634329 100%);
+}
 
 .container {
     max-width: 100%;
@@ -269,6 +318,7 @@ button {
         width: 40%;
         height: 70%;
         padding: 0.5em;
+        cursor: url(./img/cursor.cur), pointer;
     }
 
     .button-main-wrap {
@@ -282,6 +332,13 @@ button {
     button {
         width: 1.8em;
         height: 1.8em;
+    }
+
+    .prev,
+    .next {
+        width: 2em;
+        height: 1.8em;
+        font-size: 1.3em;
     }
 
     .panel {
@@ -369,6 +426,11 @@ button {
     }
 }
 
+.button-main {
+    width: 4em;
+    height: 3em;
+}
+
 .slider {
     background-image: url(./img/1.jpg);
 }
@@ -449,7 +511,7 @@ button {
     }
 }
 
-.info p::after {
+.cursor::after {
     content: "■";
     animation: blink 1.3s infinite;
     animation-timing-function: step-end;

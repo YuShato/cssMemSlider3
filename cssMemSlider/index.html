@@ -15,16 +15,11 @@
             <div class="container">
                 <div class="tv">
                     <div class="slider-wrap">
-                        <div class="slider">
-                            <!-- <div class="slide slide-1 slide-active start">slide 1</div>
-                            <div class="slide slide-2">slide 2</div>
-                            <div class="slide slide-3">slide 3</div>
-                            <div class="slide slide-4 end">slide 4</div> -->
-                        </div>
+                        <div class="slider"></div>
                     </div>
                     <div class="controls">
                         <div class="info">
-                            <p class="active" id="message"></p>
+                            <p class="" id="message"></p>
                         </div>
                         <div class="panel">
                             <div class="panel-block"></div>
@@ -34,25 +29,36 @@
                         </div>
                         <div class="button-main-wrap">
                             <button class="button-main">
-                                выкл
+                                OFF
                             </button>
                         </div>
                         <div class="button-wrap">
-                            <button class="btn prev">&#8666;</button>
-                            <button class="btn toggle-btn btn-active" data-title="0"></button>
-                            <button class="btn toggle-btn" data-title="1"></button>
-                            <button class="btn toggle-btn" data-title="2"></button>
-                            <button class="btn toggle-btn" data-title="3"></button>
-                            <button class="btn next">&#8667;</button>
+                            <div class="btn-container">
+                                <button class="btn prev">&#8666;</button>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn toggle-btn btn-active" data-title="0"></button>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn toggle-btn" data-title="1"></button>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn toggle-btn" data-title="2"></button>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn toggle-btn" data-title="3"></button>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn next">&#8667;</button>
+                            </div>
                         </div>
-                        <div class="terminal"></div>
                     </div>
                 </div>
             </div>
         </section>
 
     </main>
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
 </body>
 
 </html>
