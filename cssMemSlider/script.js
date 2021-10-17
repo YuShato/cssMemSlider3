@@ -84,3 +84,31 @@ allBtnElements.forEach((btn) => {
         toggleButton(evt);
     })
 });
+
+
+// test
+
+const userMessageWrapper = document.getElementById('message')
+async function typeUserMessage(userMessage, parentElement) {
+    await pause(1);
+
+    let textQueue = userMessage.split("");
+
+    while (textQueue.length) {
+        let char = textQueue.shift();
+        parentElement.append(char);
+        await pause(0.05);
+    }
+
+    await pause(0.5);
+    parentElement.classList.remove("active");
+    return;
+}
+
+document.querySelector('.info').addEventListener('click', () => {
+    typeUserMessage('>  hello', userMessageWrapper)
+})
+
+function pause(s = 1) {
+    return new Promise(resolve => setTimeout(resolve, 1000 * Number(s)));
+}
