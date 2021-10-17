@@ -1,12 +1,18 @@
 import {
-    slideMessage
+    slideMessage,
+    greetindUserMessage
 } from "./data.js";
 
+const greetingContainerWrap = document.getElementById('greeting-info');
+const messagesWrapElements = greetingContainerWrap.querySelectorAll('p');
 const prevSlideElement = document.querySelector('.prev');
 const nextSlideElement = document.querySelector('.next');
 const slider = document.querySelector('.slider');
 const allBtnElements = document.querySelectorAll('.toggle-btn');
-const userMessageWrapper = document.getElementById('message')
+const userMessageWrapper = document.getElementById('message');
+const mainBtn = document.querySelector('.button-main');
+const sliderWrapElement = document.querySelector('.slider-wrap');
+
 const MAX_SLIDE_ARRAY_LENGTH = 4;
 let randomIndex = 0;
 let currentIndex;
@@ -15,11 +21,7 @@ let direction;
 const directionTo = {
     left: 'left',
     right: 'right',
-};
-
-const getPrevSlide = (currentIndex) => {
-    randomIndex = currentIndex > 0 ? currentIndex -= 1 : MAX_SLIDE_ARRAY_LENGTH - 1;
-    return randomIndex;
+    toggle: 'toggle',
 };
 
 const getNextSlide = (currentIndex) => {
@@ -30,32 +32,26 @@ const getNextSlide = (currentIndex) => {
 const showPrevSlide = () => {
     currentIndex = getNextSlide(randomIndex);
     moveSlide(currentIndex, directionTo.left);
-    typeUserMessage(slideMessage[currentIndex], userMessageWrapper)
+
 };
 
 const moveSlide = (currentIndex, direction) => {
-    slider.classList.add(`slide-${direction}`);
-
-    slider.addEventListener('animationend', () => {
-        slider.classList.remove(`slide-${direction}`);
-    });
+    setSlideDirection(direction);
     deleteActiveBtnClass();
     if (direction === directionTo.left) {
-        leftSlideInd = Math.abs((currentIndex - allBtnElements.length + 1) * -1)
-        console.log(leftSlideInd)
-        addBtnActiveClass(leftSlideInd)
-    } else {
+        currentIndex = (allBtnElements.length - 1) - randomIndex;
         addBtnActiveClass(currentIndex)
+        setBg(currentIndex)
+    } else {
+        addBtnActiveClass(currentIndex);
         setBg(currentIndex);
     }
+    typeUserMessage(slideMessage[currentIndex], userMessageWrapper)
 };
-
-console.log('- стрелки вправо работают корректно, стреки влево чудят. Проверить, как пересчитывается индекс в кнопках и проверить, как слайды меняются при перелистывании влево')
 
 const showNextSlide = () => {
     currentIndex = getNextSlide(randomIndex);
-    moveSlide(currentIndex, directionTo.right)
-    typeUserMessage(slideMessage[currentIndex], userMessageWrapper)
+    moveSlide(currentIndex, directionTo.right);
 };
 
 const setBg = (randomIndex) => {
@@ -72,26 +68,34 @@ const addBtnActiveClass = (randomIndex) => {
     allBtnElements[randomIndex].classList.toggle('btn-active');
 };
 
+const setSlideDirection = (direction) => {
+    slider.classList.add(`slide-${direction}`);
+    slider.addEventListener('animationend', () => {
+        slider.classList.remove(`slide-${direction}`);
+    });
+}
+
 const toggleButton = (evt) => {
-    prevIndex = randomIndex;
+    let prevIndex = randomIndex;
     randomIndex = Number(evt.target.dataset.title);
     direction = randomIndex > prevIndex ? directionTo.right : directionTo.left
     deleteActiveBtnClass();
     addBtnActiveClass(randomIndex);
     setBg(randomIndex);
-    moveSlide(randomIndex, direction)
+    setSlideDirection(direction);
+    typeUserMessage(slideMessage[randomIndex], userMessageWrapper);
     return randomIndex;
 };
 
 const typeUserMessage = async (userMessage, parentElement) => {
-    await pause(1);
+    await pause(0.5);
     parentElement.textContent = '';
     let textQueue = userMessage.split("");
 
     while (textQueue.length) {
         let char = textQueue.shift();
         parentElement.append(char);
-        await pause(0.05);
+        await pause(0.025);
     }
 
     await pause(0.5);
@@ -99,12 +103,39 @@ const typeUserMessage = async (userMessage, parentElement) => {
     return;
 };
 
-const pause = (s = 1) => {
+const pause = (s = 0.5) => {
     return new Promise(resolve => setTimeout(resolve, 1000 * Number(s)));
 };
 
+const init = () => {
+    sliderWrapElement.classList.remove('start');
+    slider.style.opacity = 1;
+    mainBtn.classList.remove('shake');
+    greetingContainerWrap.style.display = 'none';
+    typeUserMessage(slideMessage[randomIndex], userMessageWrapper);
+    setBg(randomIndex);
+    mainBtn.textContent = 'OFF';
+}
 
-typeUserMessage(slideMessage[randomIndex], userMessageWrapper);
+document.addEventListener('DOMContentLoaded', () => {
+    let timeoutInMs = 1500;
+    typeUserMessage(greetindUserMessage[0], messagesWrapElements[0]);
+
+    for (let i = 0; i < greetindUserMessage.length; i++) {
+        timeoutInMs = timeoutInMs * (i + 1);
+        setTimeout(() => {
+            typeUserMessage(greetindUserMessage[i], messagesWrapElements[i]);
+        }, timeoutInMs);
+
+        i++;
+    }
+    mainBtn.classList.add('shake');
+
+    mainBtn.addEventListener('click', () => {
+        init();
+    })
+})
+
 prevSlideElement.addEventListener('click', showPrevSlide);
 nextSlideElement.addEventListener('click', showNextSlide);
 
